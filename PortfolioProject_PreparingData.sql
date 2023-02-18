@@ -12,7 +12,26 @@ TABLE_NAME IN ('TRIP_202201', 'TRIP_202202', 'TRIP_202203', 'TRIP_202204', 'TRIP
 GROUP BY
 TABLE_NAME;
 
-
+--checked if all the tables have the same columns names
+SELECT
+    COLUMN_NAME
+FROM 
+    INFORMATION_SCHEMA.COLUMNS
+WHERE 
+    TABLE_NAME = 'TRIP_202201'
+    OR TABLE_NAME = 'TRIP_202202'
+    OR TABLE_NAME = 'TRIP_202203'
+    OR TABLE_NAME = 'TRIP_202204'
+    OR TABLE_NAME = 'TRIP_202205'
+    OR TABLE_NAME = 'TRIP_202206'
+    OR TABLE_NAME = 'TRIP_202207'
+    OR TABLE_NAME = 'TRIP_202208'
+    OR TABLE_NAME = 'TRIP_202209'
+    OR TABLE_NAME = 'TRIP_202210'
+    OR TABLE_NAME = 'TRIP_202211'
+    OR TABLE_NAME = 'TRIP_202212'
+GROUP BY COLUMN_NAME
+HAVING COUNT(*) = 12;
 
 -- Checked table columns data types
 SELECT 
@@ -21,6 +40,23 @@ FROM INFORMATION_SCHEMA.COLUMNS c
 ORDER BY 
  c.TABLE_SCHEMA, c.TABLE_NAME, c.ORDINAL_POSITION;
 
+ --Check if column data types is the same
+ SELECT 
+    TABLE_NAME, 
+    COLUMN_NAME, 
+    DATA_TYPE
+FROM 
+    INFORMATION_SCHEMA.COLUMNS
+WHERE 
+    TABLE_NAME IN ('TRIP_202201', 'TRIP_202202', 'TRIP_202203', 'TRIP_202204', 'TRIP_202205', 'TRIP_202206', 'TRIP_202207', 'TRIP_202208', 'TRIP_202209', 'TRIP_202210', 'TRIP_202211', 'TRIP_202212')
+GROUP BY 
+    TABLE_NAME, 
+    COLUMN_NAME, 
+    DATA_TYPE
+HAVING 
+    COUNT(*) <> 1;
+
+-- The above query returns columns that have different data types for the same column name
  --Noticed data type mismatch in 202204, 202207, 202209,202210 and 202211 tables
 
 --corrected datatype mismatch in above tables
