@@ -1,3 +1,10 @@
+--This query is preparing data by combining 12 data tables into a single data table for the year 2022. The query first checks if all the tables have the same number of columns, then checks if all tables have the same column names, and then checks if the data types of the columns are the same across all tables.
+
+--The query corrects data type mismatches found in specific tables by altering their columns, and then creates a new table called "2022_TRIP_DATA" with columns for ride information.
+
+--Finally, the code inserts the data from the 12 joined tables into the new "2022_TRIP_DATA" table using the UNION operator.
+
+
 --1. Preparing Data
 --combining all the 12 data tables into a single data table 
 
@@ -31,7 +38,7 @@ WHERE
     OR TABLE_NAME = 'TRIP_202211'
     OR TABLE_NAME = 'TRIP_202212'
 GROUP BY COLUMN_NAME
-HAVING COUNT(*) = 12;
+HAVINGÂ COUNT(*)Â =Â 12;
 
 -- Checked table columns data types
 SELECT 
@@ -54,7 +61,7 @@ GROUP BY
     COLUMN_NAME, 
     DATA_TYPE
 HAVING 
-    COUNT(*) <> 1;
+  Â Â COUNT(*)Â <>Â 1;
 
 -- The above query returns columns that have different data types for the same column name
  --Noticed data type mismatch in 202204, 202207, 202209,202210 and 202211 tables
