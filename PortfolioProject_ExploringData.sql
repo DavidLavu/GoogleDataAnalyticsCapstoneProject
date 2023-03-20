@@ -1,5 +1,9 @@
 --2: Exploring Data
 
+--The query explores the data in the newly created "2022_TRIP_DATA" table by checking if the table exists, viewing the table, and then performing various analyses on the data.
+
+--We first finds the number of rides by casual and members, the number of rideable types, the number of rides ending at each docking station, the number of rides starting at each docking station, the number of round trips, and the total number of trips.
+
 -- Checking if the new created table for the combined tables exists
 SELECT 
  table_name
