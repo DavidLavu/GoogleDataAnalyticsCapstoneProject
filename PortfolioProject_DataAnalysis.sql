@@ -1,5 +1,12 @@
 --5: Data Analysis
---Create new tables for each separate analysis so that they can be exported separately to Tableau
+-- This query creates multiple new tables for various data analysis purposes. The first step is to calculate the trip duration in seconds for each ride and add the value to a new column named TRIP_DURATION_SECS. The following tables are then created to store different analyses:
+
+-- MEM_CAS_RIDES: This table stores the number of casual rides and member rides.
+-- BIKES_RIDES: This table stores the distribution of total trips over bike types.
+-- MEM_CAS_BIKE_RIDES: This table stores the distribution of member rides and casual rides for each bike type.
+-- ROUND_RIDES: This table stores the number of round trips for each bike type and membership type.
+-- YEAR_RIDES: This table stores the number of rides per month for each membership type. Additionally, the tables YEAR_RIDES_CASUAL and YEAR_RIDES_MEMBERS are created to separate the rides per month for casuals and members, respectively.
+
 
 -- Create new column trip duration in secs
 ALTER TABLE "2022_TRIP_DATA"
@@ -21,7 +28,7 @@ INSERT INTO MEM_CAS_RIDES (MEMBER_CASUAL, NO_OF_RIDES)
     SELECT MEMBER_CASUAL, COUNT(*) AS NO_OF_RIDES
     FROM [2022_TRIP_DATA]
     GROUP BY MEMBER_CASUAL
-    ORDER BY NO_OF_RIDES DESC;
+    ORDER BY NO_OF_RIDESÂ DESC;
 
 -- Calculate No. of rides for each bike type and save in a new table BIKES_RIDES
 CREATE TABLE BIKES_RIDES (
@@ -33,7 +40,7 @@ INSERT INTO BIKES_RIDES (RIDEABLE_TYPE_ID, NO_OF_RIDES)
     SELECT RIDEABLE_TYPE_ID, COUNT(*) AS NO_OF_RIDES
     FROM [2022_TRIP_DATA]
     GROUP BY RIDEABLE_TYPE_ID
-    ORDER BY NO_OF_RIDES DESC;
+    ORDER BY NO_OF_RIDESÂ DESC;
 
 	-- Calculate Distribution of members and casuals for each bike type and save in a new table MEM_CAS_BIKES_RIDES
 	
@@ -47,7 +54,7 @@ INSERT INTO MEM_CAS_BIKES_RIDES (RIDEABLE_TYPE_ID, MEMBER_CASUAL, NO_OF_RIDES)
     SELECT RIDEABLE_TYPE_ID, MEMBER_CASUAL, COUNT(*) AS NO_OF_RIDES
     FROM [2022_TRIP_DATA]
     GROUP BY RIDEABLE_TYPE_ID, MEMBER_CASUAL
-    ORDER BY RIDEABLE_TYPE_ID ASC, NO_OF_RIDES DESC;
+    ORDER BY RIDEABLE_TYPE_ID ASC, NO_OF_RIDESÂ DESC;
 
 	-- Calculate No. of round trips for each bike type and membership type and save in a new table ROUND_RIDES 
 CREATE TABLE ROUND_RIDES (
@@ -101,16 +108,3 @@ INSERT INTO YEAR_RIDES_MEMBERS (MON_YEAR, MEMBER_CASUAL, NO_OF_RIDES)
     WHERE MEMBER_CASUAL = 'member'
     GROUP BY CAST(CONVERT(VARCHAR(7), STARTED_AT, 120)+'-01' AS DATETIME), MEMBER_CASUAL;
 
-
---steps
---calculated the total trip duration in seconds for each ride and then saved it in a new column named TRIP_DURATION_SECS.
-
---created new table MEM_CAS_RIDES that stores the number of casual rides and member rides.
-
---created new table BIKES_RIDES that stores the distribution of total trips over bike types.
-
---created new table MEM_CAS_BIKE_RIDES that stores the distribution of member rides and casual rides for each bike type.
-
---created new table ROUND_RIDES that stores the number of round trips for each bike type and membership type.
-
---created new table YEAR_RIDES that stores the number of rides per month for each membership type. The tables YEAR_RIDES_CASUAL and YEAR_RIDES_MEMBERS separates this table into rides per month for casuals and members respectively.
