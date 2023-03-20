@@ -1,5 +1,13 @@
 --4: Cleaning Data
 
+--This query performs data cleaning on the "2022_TRIP_DATA" table to remove invalid or inconsistent data.
+
+--we first delete all rows where any field is null, resulting in the deletion of 2,590,952 rows. Then, it deletes all rows with STARTED_AT timestamps higher than or equal to ENDED_AT timestamps, resulting in the deletion of 206 rows.
+
+-- The code then checks if ride IDs still have count >1, which shows that there are still non-unique ride IDs. Finally, it checks again for any null values in the START_STATION_ID and START_STATION_NAME fields, and finds that the final table has no null expressions.
+
+-- the data cleaning process removes invalid and inconsistent data, ensuring that the data is ready for analysis.
+
 -- To delete all rows where any field is null
 --This query deletes (2590952 rows)
 DELETE
